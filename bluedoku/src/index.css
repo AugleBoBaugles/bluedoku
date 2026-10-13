@@ -1,0 +1,100 @@
+:root {
+  --page-bg: #8ec9ff;
+  --board-bg: #e3f3ff;
+  --grid-line: #8fc3ee;
+  --box-line: #3a86c8;
+  --cell-selected: #b9dcfa;
+  --cell-peer: #d0e8fb;
+  --title: #ffffff;
+  --given: #50c4d8;
+  --player: #265567;
+  --given-weight: 500;
+  --player-weight: 400;
+  --pad-bg: #e3f3ff;
+  --pad-text: #3a86c8;
+}
+
+body {
+  font-family: "Playpen Sans", cursive;
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--page-bg);
+  display: grid;
+  place-items: center;
+}
+
+.app {
+  display: grid;
+  justify-items: center;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0;
+  color: var(--title);
+  font-weight: normal;
+  font-size: 2rem;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: min(92vw, 460px);
+  background: var(--board-bg);
+  border: 3px solid var(--box-line);
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-size: clamp(1.2rem, 5vw, 1.9rem);
+  font-weight: var(--player-weight);
+  color: var(--player);
+  border-right: 1px solid var(--grid-line);
+  border-bottom: 1px solid var(--grid-line);
+  cursor: pointer;
+  user-select: none;
+}
+
+.cell.given { 
+  color: var(--given); 
+  font-weight: var(--given-weight);
+}
+
+.cell.box-right  { border-right: 2px solid var(--box-line); }
+.cell.box-bottom { border-bottom: 2px solid var(--box-line); }
+.cell:nth-child(9n)          { border-right: none; }
+.cell:nth-last-child(-n + 9) { border-bottom: none; }
+
+.cell.peer     { background: var(--cell-peer); }
+.cell.selected { background: var(--cell-selected); }
+
+.cell, .pad-btn {
+  touch-action: manipulation;              /* stops double-tap zoom while tapping fast */
+  -webkit-tap-highlight-color: transparent; /* removes the gray flash on iOS taps */
+}
+
+.pad {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+  width: min(92vw, 460px);
+}
+
+.pad-btn {
+  font: inherit;
+  font-size: 1.5rem;
+  padding: 0.7rem 0;
+  border: none;
+  border-radius: 14px;
+  background: var(--pad-bg);
+  color: var(--pad-text);
+  cursor: pointer;
+}
+
+.pad-btn:disabled { opacity: 0.5; cursor: default; }
+.pad-btn:active:not(:disabled) { transform: scale(0.96); }
